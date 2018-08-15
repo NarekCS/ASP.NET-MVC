@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLotMVC", "CarLotMVC\CarLotMVC.csproj", "{91750818-8E52-4550-A6D3-0A101D37D5E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLotDALEF", "AutoLotDALEF\AutoLotDALEF.csproj", "{BD9FEF98-AFEA-446C-8988-443F87F81146}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{91750818-8E52-4550-A6D3-0A101D37D5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91750818-8E52-4550-A6D3-0A101D37D5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91750818-8E52-4550-A6D3-0A101D37D5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
