@@ -43,7 +43,7 @@ namespace AutoLotDALEF.EF
             }
         }
 
-        static readonly DatabaseLogger DatabaseLogger = new DatabaseLogger("sqllog.txt", true);
+        //static readonly DatabaseLogger DatabaseLogger = new DatabaseLogger("sqllog.txt", true);
         public virtual DbSet<CreditRisk> CreditRisks { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
