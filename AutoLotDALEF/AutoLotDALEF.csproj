@@ -64,6 +64,7 @@
     <Compile Include="Models\CreditRisk.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\MetaData\InventoryMetaData.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Partials\InventoryPartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,5 +87,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

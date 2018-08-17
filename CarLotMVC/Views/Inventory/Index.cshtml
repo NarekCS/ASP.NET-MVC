@@ -1,7 +1,26 @@
 ﻿@model IEnumerable<AutoLotDALEF.Models.Inventory>
 
+@using AutoLotDALEF.Models
+@helper ShowInventory(Inventory item)
+{
+    @item.Make<text>-</text>@item.Color<text>(</text>@item.PetName<text>)</text>
+}
+
+@functions
+{
+    public IList<Inventory> SortCars(IList<Inventory> cars)
+    {
+        var list = from s in cars orderby s.PetName select s;
+        return list.ToList();
+    }
+}
+@{
+    Func<dynamic, object> b = @<strong>@item</strong>;
+}
+@*This will be bold: @b("Foo")*@
 @{
     ViewBag.Title = "Index";
+   // Layout = "~/Views/Shared/LayoutNew.cshtml";
 }
 
 <h2>Index</h2>
@@ -20,32 +39,28 @@
         <th>
             @Html.DisplayNameFor(model => model.PetName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Timestamp)
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Make)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PetName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Timestamp)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CarId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CarId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CarId })
-        </td>
-    </tr>
-}
+    @foreach (var item in SortCars(Model.ToList()))
+    {
+        @*@ShowInventory(item)*@
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PetName)
+            </td>         
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CarId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CarId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CarId })
+            </td>
+        </tr>
+    }
 
 </table>
