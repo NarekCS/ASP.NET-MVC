@@ -23,12 +23,13 @@
    // Layout = "~/Views/Shared/LayoutNew.cshtml";
 }
 
-<h2>Index</h2>
+<div class="well well-sm"><h1>Available Inventory</h1></div>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-responsive table-hover table-bordered">
+    <caption>Vehicle List</caption>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Make)
@@ -62,5 +63,4 @@
             </td>
         </tr>
     }
-
 </table>
