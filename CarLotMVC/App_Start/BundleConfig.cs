@@ -27,6 +27,7 @@ namespace CarLotMVC
                       //"~/Content/bootstrap-grid.css",
                      // "~/Content/bootstrap-reboot.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform()));
         }
     }
 }
