@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLotMVC", "CarLotMVC\CarL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLotDALEF", "AutoLotDALEF\AutoLotDALEF.csproj", "{BD9FEF98-AFEA-446C-8988-443F87F81146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarLotWebAPI", "CarLotWebAPI\CarLotWebAPI.csproj", "{F09386AD-662A-45A7-A4E8-91F3523D21AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD9FEF98-AFEA-446C-8988-443F87F81146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09386AD-662A-45A7-A4E8-91F3523D21AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09386AD-662A-45A7-A4E8-91F3523D21AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09386AD-662A-45A7-A4E8-91F3523D21AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09386AD-662A-45A7-A4E8-91F3523D21AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
