@@ -14,7 +14,7 @@ namespace AutoLotDALEF.Models
         [Key]
         public int CarId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Please enter a value less than 50 characters long.")]
         public string Make { get; set; }
 
         [StringLength(50)]

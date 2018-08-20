@@ -55,7 +55,11 @@ namespace CarLotMVC.Controllers
         public async Task<ActionResult> Create([Bind(Include = "Make,Color,PetName")] Inventory inventory)
         {
             if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred in the data. Please check all values and try again.");
                 return View(inventory);
+            }
+                
             try
             {
                 await _repo.AddAsync(inventory);                
@@ -127,11 +131,11 @@ namespace CarLotMVC.Controllers
         // POST: Inventory/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete([Bind(Include = "CarId, Timestamp")] Inventory inventory)
+        public async Task<ActionResult> Delete([Bind(Include = "CarId,Timestamp")] Inventory inventory)
         {
             try
             {
-                await _repo.DeleteAsync(inventory.CarId);
+                await _repo.DeleteAsync(inventory);
                 //db.Inventory.Remove(inventory);
                 //await db.SaveChangesAsync();
                 return RedirectToAction("Index");
