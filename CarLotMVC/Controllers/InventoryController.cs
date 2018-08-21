@@ -11,6 +11,9 @@ using AutoLotDALEF.EF;
 using AutoLotDALEF.Models;
 using AutoLotDALEF.Repos;
 using System.Data.Entity.Infrastructure;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace CarLotMVC.Controllers
 {
@@ -23,7 +26,16 @@ namespace CarLotMVC.Controllers
         // GET: Inventory
         public async Task<ActionResult> Index()
         {
-            return View(await _repo.GetAllAsync());
+            //return View(await _repo.GetAllAsync());
+            var client = new HttpClient();
+            var response = await client.GetAsync("http://localhost:64252/api/Inventory");
+            if (response.IsSuccessStatusCode)
+            {
+                var items = JsonConvert.DeserializeObject<List<Inventory>>(
+                await response.Content.ReadAsStringAsync());
+                return View(items);
+            }
+            return HttpNotFound();
         }
 
         // GET: Inventory/Details/5
@@ -33,12 +45,22 @@ namespace CarLotMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = await _repo.GetOneAsync(id);
-            if (inventory == null)
+            //Inventory inventory = await _repo.GetOneAsync(id);
+            //if (inventory == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(inventory);
+
+            var client = new HttpClient();
+            var response = await client.GetAsync($"http://localhost:64252/api/Inventory/{id.Value}");
+            if (response.IsSuccessStatusCode)
             {
-                return HttpNotFound();
+                var inventory = JsonConvert.DeserializeObject<Inventory>(
+                await response.Content.ReadAsStringAsync());
+                return View(inventory);
             }
-            return View(inventory);
+            return HttpNotFound();
         }
 
         // GET: Inventory/Create
@@ -62,14 +84,20 @@ namespace CarLotMVC.Controllers
                 
             try
             {
-                await _repo.AddAsync(inventory);                
-                return RedirectToAction("Index");
+                //await _repo.AddAsync(inventory);                
+                //return RedirectToAction("Index");
+                var client = new HttpClient();
+                var response = await client.PostAsJsonAsync("http://localhost:64252/api/Inventory", inventory);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Unable to create record: {ex.Message}");
-                return View(inventory);
-            }            
+                ModelState.AddModelError(string.Empty, $"Unable to create record: {ex.Message}");                
+            }
+            return View(inventory);
         }
 
         // GET: Inventory/Edit/5
@@ -79,12 +107,21 @@ namespace CarLotMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = await _repo.GetOneAsync(id);
-            if (inventory == null)
+            //Inventory inventory = await _repo.GetOneAsync(id);
+            //if (inventory == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(inventory);
+            var client = new HttpClient();
+            var response = await client.GetAsync($"http://localhost:64252/api/Inventory/{id.Value}");
+            if (response.IsSuccessStatusCode)
             {
-                return HttpNotFound();
+                var inventory = JsonConvert.DeserializeObject<Inventory>(
+                await response.Content.ReadAsStringAsync());
+                return View(inventory);
             }
-            return View(inventory);
+            return new HttpNotFoundResult();
         }
 
         // POST: Inventory/Edit/5
@@ -96,19 +133,25 @@ namespace CarLotMVC.Controllers
         {
             if (!ModelState.IsValid)
                 return View(inventory);
-            try
+            //try
+            //{                
+            //    await _repo.SaveAsync(inventory);
+            //    return RedirectToAction("Index");
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Unable to save record. Another user updated the record.");
+            //}
+            //catch(Exception ex)
+            //{
+            //    ModelState.AddModelError(string.Empty, $"Unable to save record: {ex.Message}");
+            //}
+            //return View(inventory);
+            var client = new HttpClient();
+            var response = await client.PutAsJsonAsync($"http://localhost:64252/api/Inventory/{inventory.CarId}", inventory);
+                if (response.IsSuccessStatusCode)
             {
-                //db.Entry(inventory).State = EntityState.Modified;
-                await _repo.SaveAsync(inventory);
                 return RedirectToAction("Index");
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                ModelState.AddModelError(string.Empty, "Unable to save record. Another user updated the record.");
-            }
-            catch(Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, $"Unable to save record: {ex.Message}");
             }
             return View(inventory);
         }
@@ -120,12 +163,21 @@ namespace CarLotMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = await _repo.GetOneAsync(id);
-            if (inventory == null)
+            //Inventory inventory = await _repo.GetOneAsync(id);
+            //if (inventory == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(inventory);
+            var client = new HttpClient();
+            var response = await client.GetAsync($"http://localhost:64252/api/Inventory/{id.Value}");
+            if (response.IsSuccessStatusCode)
             {
-                return HttpNotFound();
+                var inventory = JsonConvert.DeserializeObject<Inventory>(
+                await response.Content.ReadAsStringAsync());
+                return View(inventory);
             }
-            return View(inventory);
+            return new HttpNotFoundResult();
         }
 
         // POST: Inventory/Delete/5
@@ -135,9 +187,17 @@ namespace CarLotMVC.Controllers
         {
             try
             {
-                await _repo.DeleteAsync(inventory);
-                //db.Inventory.Remove(inventory);
-                //await db.SaveChangesAsync();
+                //await _repo.DeleteAsync(inventory);                
+                //return RedirectToAction("Index");
+                var client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(
+                HttpMethod.Delete,
+                $"http://localhost:64252/api/Inventory/{inventory.CarId}")
+                {
+                    Content =
+                new StringContent(JsonConvert.SerializeObject(inventory), Encoding.UTF8, "application/json")
+                };
+                var response = await client.SendAsync(request);
                 return RedirectToAction("Index");
             }
             catch (DbUpdateConcurrencyException)

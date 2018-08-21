@@ -15,7 +15,7 @@ namespace CarLotWebAPI.Controllers
     public class InventoryController : ApiController
     {
         private readonly InventoryRepo _repo = new InventoryRepo();
-        public InventoryController()
+        static InventoryController()
         {
             Mapper.Initialize(
             cfg =>
@@ -63,6 +63,44 @@ namespace CarLotWebAPI.Controllers
                 throw;
             }
             return StatusCode(HttpStatusCode.NoContent);
+        }
+        // POST: api/Inventory
+        [ResponseType(typeof(Inventory))]
+        public async Task<IHttpActionResult> PostInventory(Inventory inventory)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _repo.AddAsync(inventory);
+            }
+            catch (Exception ex)
+            {
+                //Production app should do more here
+                throw;
+            }
+            return CreatedAtRoute("DefaultApi", new { id = inventory.CarId }, inventory);
+        }
+        // DELETE: api/Inventory/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> DeleteInventory(int id, Inventory inventory)
+        {
+            if (id != inventory.CarId)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _repo.DeleteAsync(inventory);
+            }
+            catch (Exception ex)
+            {
+                //Production app should do more here
+                throw;
+            }
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
